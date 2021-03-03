@@ -1,6 +1,6 @@
 require('dotenv').config();
 
 module.exports.avatar = {
-    name: "avatart",
+    name: "avatar",
     description: "Get a users avatar."
 };

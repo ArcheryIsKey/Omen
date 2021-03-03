@@ -43,7 +43,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
     const command = interaction.data.name.toLowerCase();
     const args = interaction.data.options;
     switch (command) {
-        case 'avatart':
+        case 'avatar':
             console.log(`${interaction.data.id} = command id`);
             const embed = new discord.MessageEmbed()
                 .setImage(`https://cdn.discordapp.com/avatars/${interaction.member.user.id}/${interaction.member.user.avatar}?size=256`)
