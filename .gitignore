@@ -1,1 +1,4 @@
 .env
+.vscode
+settings.json
+package-lock.json

@@ -3,7 +3,7 @@ const discord = require('discord.js');
 require('./commands/avatar.js');
 
 const { DiscordInteractions, ApplicationCommandOptionType } = require("slash-commands");
-const { command } = require('./commands/avatar.js');
+const { avatar } = require('./commands/avatar.js');
 
 const interaction = new DiscordInteractions({
     applicationId: process.env.APPLICATION_ID,
@@ -22,13 +22,13 @@ client.once('ready', async() => {
 
     // CREATE
     // await interaction
-    //     .createApplicationCommand(command, process.env.GUILD_ID)
-    //     .then(console.log)
+    //     .createApplicationCommand(avatar, process.env.GUILD_ID)
+    //     .then(console.log(""))
     //     .catch(console.error);
 
     // DELETE
     // await interaction
-    //     .deleteApplicationCommand("816488933340086312", process.env.GUILD_ID)
+    //     .deleteApplicationCommand("816602024375615508", process.env.GUILD_ID)
     //     .then(console.log("delete guild"))
     //     .catch(console.error);
 
@@ -37,6 +37,25 @@ client.once('ready', async() => {
     //     .createApplicationCommand(command, process.env.GUILD_ID, "command id")
     //     .then(console.log)
     //     .catch(console.error);
+
+});
+
+client.on('message', async message => {
+    if (!message.content.startsWith('omen.') || message.author.bot) return;
+    const args = message.content.slice('omen.'.length).trim().split(/ +/);
+    const commandName = args.shift().toLowerCase();
+
+
+    if (commandName === "reactionrole") {
+        let embed = new discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('Choose your roles.')
+            .setDescription('Description.')
+
+        message.channel.send(embed);
+        // TODO: Add emojis to react to for roles. NEED ROLES AND EMOJIS
+        // embedMessage.react()
+    }
 });
 
 client.ws.on('INTERACTION_CREATE', async interaction => {
@@ -49,8 +68,8 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
                 .setImage(`https://cdn.discordapp.com/avatars/${interaction.member.user.id}/${interaction.member.user.avatar}?size=256`)
                 .setTimestamp(Date.now())
                 .setColor('#0099ff');
-            console.log(`${interaction.member.user.id} = ${interaction.member.user.username}`);
-            interaction.member.user.dis
+
+            console.log(`${interaction.member.user.id} = ${interaction.member.user.username}#${interaction.member.user.discriminator}`);
             client.api.interactions(interaction.id, interaction.token).callback.post({
                 data: {
                     type: 4,
